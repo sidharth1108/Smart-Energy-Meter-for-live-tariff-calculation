@@ -19,7 +19,7 @@ A real-time energy monitoring system using Arduino, PZEM-004T, and an I2C LCD. I
   - `5–10 units:` ₹3.5/unit  
   - `10–15 units:` ₹5/unit  
   - `>15 units:` ₹8/unit
-  (Change it according to your needs)
+  -(Change it according to your needs)
 - I2C LCD display with 5 display modes (toggled via a push-button)
 - Serial Monitor output for debugging/logging
 
