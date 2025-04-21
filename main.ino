@@ -2,11 +2,11 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
-#define SWITCH_PIN 4  // Switch connected to digital pin 7
+#define SWITCH_PIN 4  // Switch connected to digital pin 4
 
 float tariff = 0;
 float units = 0;
-int displayMode = 0;  // 0: Voltage & Current, 1: Tariff & Units, 2: Energy & Power, 3: Frequency & Power Factor
+int displayMode = 0;  // 0: Voltage & Current, 1: Tariff & Units, 2: Energy & Real Power, 3:Reactive and Apparent Power 4: Frequency & Power Factor
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 PZEM004Tv30 pzem(8, 9); // Software Serial pin 8 (RX) & 9 (TX)
@@ -23,7 +23,7 @@ void setup() {
 void loop() {
   // Read switch state and cycle display mode when pressed
   if (digitalRead(SWITCH_PIN) == LOW) {
-    displayMode = (displayMode + 1) % 5;  // Cycle through 4 modes
+    displayMode = (displayMode + 1) % 5;  // Cycle through 5 modes
     delay(200); // Debounce delay
   }
 
@@ -38,7 +38,7 @@ void loop() {
   // Accumulate energy and calculate tariff
   if (!isnan(power)) {
     float energyPerSecond = power / (1000.0 * 3600.0);
-    float unitsPerSecond = energyPerSecond / 0.001;
+    float unitsPerSecond = energyPerSecond / 0.001; //for example, taking 1 unit as 0.001kwh
     units += unitsPerSecond;
 
     if (units < 5) {
