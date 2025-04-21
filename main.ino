@@ -6,13 +6,13 @@
 
 float tariff = 0;
 float units = 0;
-int displayMode = 0;  // 0: Voltage & Current, 1: Tariff & Units, 2: Energy & Real Power, 3:Reactive and Apparent Power 4: Frequency & Power Factor
+int displayMode = 0;  // 0: Voltage & Current, 1: Tariff & Units, 2: Energy & Real Power, 3: Reactive and Apparent Power, 4: Frequency & Power Factor
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
-PZEM004Tv30 pzem(8, 9); // Software Serial pin 8 (RX) & 9 (TX)
+PZEM004Tv30 pzem(8, 9); // Software Serial pin 8 (RX) & 9 (TX), connected to TX and RX of PZEM004T respectively
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(9600);//baud rate 9600
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0, 0);
@@ -23,7 +23,7 @@ void setup() {
 void loop() {
   // Read switch state and cycle display mode when pressed
   if (digitalRead(SWITCH_PIN) == LOW) {
-    displayMode = (displayMode + 1) % 5;  // Cycle through 5 modes
+    displayMode = (displayMode + 1) % 5;  // Cycle through 5 modes for lcd
     delay(200); // Debounce delay
   }
 
